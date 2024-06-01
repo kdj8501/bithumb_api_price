@@ -27,25 +27,8 @@ def print_price(token, count):
         mylcd.lcd_display_string(string, 2)
         time.sleep(1)
 
-def print_balance(token, amount, count):
-    url = "https://api.bithumb.com/public/transaction_history/" + token + "_KRW"
-    mylcd.lcd_display_string("Balance", 1)
-    for i in range(count):
-        response = requests.get(url, headers = headers)
-        idx1 = response.text.rfind("price") + 8
-        idx2 = response.text.rfind("total") - 3
-        string = "{:,}".format(int(float(response.text[idx1:idx2]) * amount))
-        string = string + " KRW"
-        for i in range(16 - len(string)):
-            string = string + " "
-        mylcd.lcd_display_string(string, 2)
-        time.sleep(1)
-
 while True:
-    tokens = ["BTC", "ETH", "ZBCN"]
+    tokens = ["BTC", "ETH"]
     for tok in tokens:
         mylcd.lcd_display_string("                ", 1)
-        if tok == "BALANCE":
-            print_balance("ZBCN", 301238.81619964, 3)
-        else:
-            print_price(tok, 3)
+        print_price(tok, 3)
